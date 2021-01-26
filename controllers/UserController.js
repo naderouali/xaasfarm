@@ -1,19 +1,16 @@
 const router = require("express").Router();
 let User = require("../models/UserModel");
 const bcrypt = require("bcrypt");
-//const Joi = require('@hapi/joi');
 const jwt = require("jsonwebtoken");
 
 
 const register = async (req, res, next) => {
-    //validate data
-    //const validation = Joi.validate(req.body, schema);
 
     //checking if email exists already in DB
     console.log(req.body);
     const emailExist = await User.findOne({ email: req.body.email });
     if (emailExist)
-        return res.status(400).send("Cette e-mail est déjà enregistré, essayer de se connecter");
+        return res.status(400).send("Email already exists, try login");
     console.log(req.body);
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const firstname = req.body.firstname;
@@ -37,10 +34,10 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
 
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(400).send("Cette e-mail n'est pas enregistrée, essayer de créer un compte");
+    if (!user) return res.status(400).send("Email does NOT exists, try register instead");
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) return res.status(400).send("wrong password");
+    if (!validPassword) return res.status(400).send("Wrong password");
     else {
         //create and assign a jwt
         const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: 2400 * 60 * 60 });
