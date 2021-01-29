@@ -18,7 +18,7 @@ const register = async (req, res, next) => {
     const email = req.body.email;
     const password = hashedPassword;
     const birthday = Date.parse(req.body.birthday);
-
+    console.log(req.body.birthday);
     const newUser = new User({ firstname, lastname, email, password, birthday });
 
     newUser

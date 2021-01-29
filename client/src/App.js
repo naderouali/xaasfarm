@@ -4,10 +4,12 @@ import { reactLocalStorage as Ls } from 'reactjs-localstorage';
 import Navbar from "./components/Navbar";
 import "./App.css";
 // import Home from "./views/HomePage";
-import LoginForm from "./views/Login";
-import RegisterForm from "./views/Register";
+import Home from "./views/Home";
+import Login from "./views/Login";
+import Register from "./views/Register";
 import Profile from "./views/Profile";
 import jwt_decode from "jwt-decode";
+
 
 const App = () => {
 
@@ -57,17 +59,16 @@ const App = () => {
 
   return (
     <>
-      {!location.pathname.includes("/register") &&
-        <Navbar style={{}} doLogout={doLogout} />
-      }
+      <Navbar style={{}} doLogout={doLogout} />
       <Switch>
-        {/* <Route path="/" exact component={Home} /> */}
-        <Route path="/login" component={LoginForm} />
-        <Route path="/register" component={RegisterForm} />
+        <Route path="/" exact component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
 
       </Switch>
     </>
+
   );
 };
 

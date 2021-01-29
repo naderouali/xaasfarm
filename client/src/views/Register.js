@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import logo from "../medias/xaasfarm.png";
+import Button from '@material-ui/core/Button';
+import { NavLink } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 export default function RegisterForm() {
 
@@ -18,99 +28,74 @@ export default function RegisterForm() {
             lastname: lastname,
             email: email,
             password: password,
-            birthday: birthday
+            birthday: selectedDate
         };
         console.log(user);
         axios
-            .post("/api/users/register", user)
+            .post("api/user/register", user)
             .then((res) => console.log(res.data))
             .catch((error) => console.log(error.response.request._response));
-        //window.location = "/";
     }
 
-    const style = {
 
+    const handleEnter = (e) => {
+        if (e.key === 'Enter') {
+            onSubmit();
+            e.preventDefault();
+        }
     }
 
+    const [selectedDate, setSelectedDate] = React.useState();
+
+    const handleDateChange = (date) => {
+        var finaldate = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+        setSelectedDate(finaldate);
+        console.log(finaldate);
+    };
 
     return (
-        <div>
-            <div style={{ backgroundColor: "#92c1e0", height: "100vh", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                <div style={{ backgroundColor: "#214d72", padding: "5vh 20vh 10vh 20vh" }}>
 
-                    <h1 style={{ color: "#cadfec" }}>Créer un compte</h1>
-
-                    <div>
-                        <input
-                            type="input"
-                            className="form__field"
-                            name="firstname"
-                            placeholder="First Name"
-                            value={firstname}
-                            onChange={(e) => { setFirstname(e.target.value); }}
-                            required
-                        />
-                        <label htmlFor="firstname" className="form__label">First name</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="input"
-                            className="form__field"
-                            name="lastname"
-                            placeholder="Last Name"
-                            value={lastname}
-                            onChange={(e) => { setLastname(e.target.value); }}
-                            required
-                        />
-                        <label htmlFor="lastname" className="form__label">Last name</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="input"
-                            className="form__field"
-                            name="email"
-                            placeholder="Email"
-                            value={email}
-                            onChange={(e) => { setEmail(e.target.value); }}
-                            required
-                        />
-                        <label htmlFor="email" className="form__label">Email</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="input"
-                            className="form__field"
-                            name="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => { setPassword(e.target.value); }}
-                            required
-                        />
-                        <label htmlFor="password" className="form__label">Password</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="date"
-                            className="form__field"
-                            name="birthday"
-                            placeholder="Birthday"
-                            value={birthday}
-                            onChange={(e) => { setBirthday(e.target.value); }}
-                            required
-                        />
-                        <label htmlFor="birthday" className="form__label">Birthday</label>
-                    </div>
-
-                    <button onClick={onSubmit}>
-                        Create account
-          </button>
-
+        <div style={{ backgroundColor: "#b9b9b9" }}>
+            <div className="RegularFont" style={{ backgroundColor: '#b9b9b9', minHeight: "100vh", marginLeft: '20%', marginRight: '20%', display: 'flex', flexDirection: 'column', gap: '30px', padding: '6%' }}>
+                {/* logo */}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img src={logo} style={{ display: 'flex', alignItems: 'center', width: '50%', maxWidth: '90%', marginLeft: 'auto', marginRight: 'auto' }} />
                 </div>
+
+                <div style={{ color: '#212121', fontSize: 30 }}>Join us</div>
+
+                {/* Fields */}
+                <TextField id="outlined-basic" reauired label="First name" variant="outlined" value={firstname} onChange={(e) => { setFirstname(e.target.value); }} />
+                <TextField id="outlined-basic" reauired label="Last name" variant="outlined" value={lastname} onChange={(e) => { setLastname(e.target.value); }} />
+                <TextField id="outlined-basic" reauired label="E-mail" variant="outlined" value={email} onChange={(e) => { setEmail(e.target.value); }} />
+                <TextField id="outlined-basic" reauired label="Password" variant="outlined" value={password} onChange={(e) => { setPassword(e.target.value); }} onKeyPress={handleEnter} />
+                {/* <TextField id="outlined-basic" reauired label="Birthday" variant="outlined" value={birthday} onChange={(e) => { setBirthday(e.target.value); }} onKeyPress={handleEnter} /> */}
+
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                        disableToolbar
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        label="Birthday"
+                        value={selectedDate}
+                        onChange={handleDateChange}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                        }}
+                    />
+                </MuiPickersUtilsProvider>
+                <Button onClick={onSubmit} variant="contained" color="primary" style={{ color: 'white', backgroundColor: '#72a54b' }}>
+                    Create account
+                </Button>
+
+                <div style={{ textAlign: 'center' }}>
+                    <NavLink to="/login" style={{ color: 'black', fontSize: 14 }} >Already have an account? Log in here</NavLink>
+                </div>
+
             </div>
         </div>
+
     );
 }
