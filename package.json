@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon start"
+    "start": "nodemon start",
+    "gitAdd": "git add . && git commit -m \"dev test\" && git push origin master",
+    "heroku-postbuild": "react-scripts build && cd backend && npm install"
   },
   "author": "",
   "license": "ISC",
