@@ -24,4 +24,4 @@ profile
 ![alt text](./screenshots/profile.jpg)
 
 buy images
-![alt text](./screenshots/buy images.jpg)
+![alt text](./screenshots/buyimages.jpg)
