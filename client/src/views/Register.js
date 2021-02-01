@@ -3,6 +3,7 @@ import axios from "axios";
 import logo from "../medias/xaasfarm.png";
 import Button from '@material-ui/core/Button';
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -14,6 +15,8 @@ import {
 
 export default function RegisterForm() {
 
+    var history = useHistory();
+
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
@@ -23,6 +26,23 @@ export default function RegisterForm() {
 
 
     const onSubmit = () => {
+        if (!firstname) {
+            alert('Fill up your first name');
+            return;
+        }
+        if (!lastname) {
+            alert('Fill up your last name');
+            return;
+        }
+        if (!email) {
+            alert('Fill up your e-mail');
+            return;
+        }
+        if (!password) {
+            alert('Fill up your password');
+            return;
+        }
+
         if (!verifyEmail(email)) {
             return;
         }
@@ -37,7 +57,18 @@ export default function RegisterForm() {
             console.log(user);
             axios
                 .post("api/user/register", user)
-                .then((res) => console.log(res.data))
+                .then((res) => {
+                    console.log(res.data)
+
+
+                    history.push("/login")
+
+
+
+
+                })
+
+
                 .catch((error) => console.log(error.response.request._response));
         }
 

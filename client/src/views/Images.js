@@ -8,6 +8,7 @@ import { reactLocalStorage as Ls } from 'reactjs-localstorage';
 
 export default function Images() {
 
+
     const [images, setImages] = useState([])
 
     const [selectedImage, setSelectedImage] = useState({
@@ -83,8 +84,6 @@ export default function Images() {
 
                 if (response.success) {
                     setImages(response.images)
-                } else {
-
                 }
             })
 
@@ -124,9 +123,13 @@ export default function Images() {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleCloseAndBuy = () => {
         setOpen(false);
         onBuy();
+    };
+    const handleCancel = () => {
+        setOpen(false);
+
     };
 
 
@@ -150,14 +153,14 @@ export default function Images() {
                         handleOpen={handleOpen}
                         key={item._id}
                         {...item}
-
+                        inProfile={false}
                         owned={user.ownedImages.includes(item._id)}
 
                     />
                 ))}
 
 
-                <Modale open={open} handleClose={handleClose} selectedImage={selectedImage} />
+                <Modale open={open} handleCloseAndBuy={handleCloseAndBuy} handleCancel={handleCancel} selectedImage={selectedImage} />
 
 
 

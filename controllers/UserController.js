@@ -60,7 +60,10 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
 
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(400).send("Email does NOT exists, try register instead");
+    if (!user) return res.json({
+        success: false,
+        message: "user-not-found"
+    })
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).send("Wrong password");
@@ -68,7 +71,12 @@ const login = async (req, res, next) => {
         //create and assign a jwt
         const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: 2400 * 60 * 60 });
         console.log(token);
-        res.header("auth-token", token).send(token);
+        // res.header("auth-token", token).send(token);
+
+        return res.json({
+            success: true,
+            token: token
+        })
     }
 
 }

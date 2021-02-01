@@ -17,26 +17,39 @@ export default function Login() {
     const onSubmit = () => {
         if (!email) {
             alert('Fill up E-mail');
+            return;
         }
-        else if (!password) {
+
+        if (!password) {
             alert('Fill up Password');
+            return;
         }
-        else {
-            const user = {
-                email: email,
-                password: password,
-            };
-            axios
-                .post("/api/user/login", user)
-                .then((res) => {
-                    console.log(res.data)
 
-                    Ls.setObject("session", { token: res.data, isLoggedIn: true });
 
+
+        const user = {
+            email: email,
+            password: password,
+        };
+        axios
+            .post("/api/user/login", user)
+            .then((res) => {
+                console.log(res.data)
+
+                if (res.data.success) {
+
+                    Ls.setObject("session", { token: res.data.token, isLoggedIn: true });
                     history.push("/profile")
-                })
-            // window.location = "/users/profile";
-        }
+
+                } else if (res.data.message === "user-not-found") {
+                    alert("Wrong e-mail or password");
+                    setEmail("")
+                    setPassword("")
+                }
+
+
+            })
+
 
 
     }

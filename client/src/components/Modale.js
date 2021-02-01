@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Modale({ open, handleClose, selectedImage }) {
+export default function Modale({ open, handleCloseAndBuy, handleCancel, selectedImage }) {
     const classes = useStyles();
 
 
@@ -30,7 +30,7 @@ export default function Modale({ open, handleClose, selectedImage }) {
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={open}
-            onClose={handleClose}
+            onClose={handleCancel}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
@@ -43,8 +43,8 @@ export default function Modale({ open, handleClose, selectedImage }) {
                     <h2 id="transition-modal-title" style={{ textAlign: 'center' }}>{selectedImage.price}</h2>
                     <p id="server-modal-description">Buy this image?</p>
                     <div style={{ display: 'flex', flexDirection: 'row', gap: 20, margin: '10%' }}>
-                        <Button onClick={handleClose} variant="contained" color="default" style={{ color: 'black', backgroundColor: '#e9e9e9', width: '100%' }}>Cancel</Button>
-                        <Button onClick={handleClose} variant="contained" color="primary" style={{ color: 'white', backgroundColor: '#72a54b', width: '100%' }}>Buy</Button>
+                        <Button onClick={handleCancel} variant="contained" color="default" style={{ color: 'black', backgroundColor: '#e9e9e9', width: '100%' }}>Cancel</Button>
+                        <Button onClick={handleCloseAndBuy} variant="contained" color="primary" style={{ color: 'white', backgroundColor: '#72a54b', width: '100%' }}>Buy</Button>
                     </div>
                 </div>
             </Fade>
