@@ -49,7 +49,7 @@ const register = async (req, res, next) => {
 
     console.log("connecting for creation");
 
-    const newUser = new User({ firstname, lastname, email, password, birthday });
+    const newUser = new User({ firstname, lastname, email, password, birthday, [] });
 
     newUser
         .save()
