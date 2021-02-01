@@ -18,6 +18,9 @@ const userSchema = new Schema(
         birthday: {
             type: Date,
         },
+        ownedImages: {
+            type: Array
+        }
     },
     { timestamps: true }
 );

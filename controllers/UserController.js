@@ -4,6 +4,32 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
+
+const buyImage = async (req, res, next) => {
+
+    console.log(req.body.imageId)
+
+    const id = req.user._id;
+    User.findOneAndUpdate({ _id: id }, { "$push": { ownedImages: req.body.imageId } }, (err, doc) => {
+
+        if (err) {
+            return res.json({
+                success: false,
+                message: "mongoose-error"
+            })
+        }
+
+        return res.json({
+            success: true,
+            addedId: req.body.imageId
+        })
+
+    })
+
+
+}
+
+
 const register = async (req, res, next) => {
 
     //checking if email exists already in DB
@@ -68,5 +94,5 @@ const profile = async (req, res, next) => {
 }
 
 module.exports = {
-    register, login, profile
+    register, login, profile, buyImage
 }

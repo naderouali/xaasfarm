@@ -15,20 +15,29 @@ export default function Login() {
     var history = useHistory();
 
     const onSubmit = () => {
-        const user = {
-            email: email,
-            password: password,
-        };
-        axios
-            .post("/api/user/login", user)
-            .then((res) => {
-                console.log(res.data)
+        if (!email) {
+            alert('Fill up E-mail');
+        }
+        else if (!password) {
+            alert('Fill up Password');
+        }
+        else {
+            const user = {
+                email: email,
+                password: password,
+            };
+            axios
+                .post("/api/user/login", user)
+                .then((res) => {
+                    console.log(res.data)
 
-                Ls.setObject("session", { token: res.data, isLoggedIn: true });
+                    Ls.setObject("session", { token: res.data, isLoggedIn: true });
 
-                history.push("/profile")
-            })
-        // window.location = "/users/profile";
+                    history.push("/profile")
+                })
+            // window.location = "/users/profile";
+        }
+
 
     }
 

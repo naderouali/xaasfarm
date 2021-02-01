@@ -27,12 +27,14 @@ connection.once("open", () => {
 
 //import routes
 const userRouter = require("./routes/UserRouter.js");
+const imageRouter = require("./routes/ImageRouter.js");
 //const iconRouter = require("./routes/IconRouter.js");
 // const missionsRouter = require("./routes/missions.route");
 // const photosRouter = require("./routes/photos.route");
 
 //routes middlewares
 app.use("/api/user", userRouter);
+app.use("/api/image", imageRouter);
 //app.use("/api/icon", iconRouter);
 // app.use("/api/profile", missionsRouter);
 // app.use("/photos", photosRouter);

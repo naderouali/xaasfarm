@@ -50,8 +50,8 @@ export default function Profile() {
 
 
     return (
-        <div style={{ position: 'absolute', top: "10vh" }}>
-            <div className="emailTab" style={{ backgroundColor: "#2b6dd4", padding: 10, gridColumn: "1/2" }} >name: {user.firstname} {user.lastname}</div>
+        <div style={{ textAlign: 'center' }}>
+            <div style={{ position: 'absolute', marginTop: 140, textAlign: 'center', fontSize: 40 }} >Hello {user.firstname}</div>
 
         </div>
     )

@@ -36,7 +36,9 @@ export default function NavbarF({ doLogout }) {
                     <>
                         <li><NavLink onClick={(e) => setMenuActive(!menuActive)} to="/" >Home</NavLink></li>
                         <li><NavLink onClick={(e) => setMenuActive(!menuActive)} to="/profile" >Profile</NavLink></li>
-                        <li><NavLink onClick={doLogout} to="/login" >Log out</NavLink></li>
+                        <li><NavLink onClick={(e) => setMenuActive(!menuActive)} to="/images" >Images</NavLink></li>
+                        {/* <li><NavLink onClick={doLogout} to="/login" >Log out</NavLink></li> */}
+                        <li><NavLink onClick={(e) => { setMenuActive(!menuActive); doLogout(); }} to="/login" >Log out</NavLink></li>
 
                     </>
                     :

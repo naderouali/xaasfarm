@@ -18,23 +18,29 @@ export default function RegisterForm() {
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [birthday, setBirthday] = useState(new Date());
+    // const [birthday, setBirthday] = useState(new Date());
 
 
 
     const onSubmit = () => {
-        const user = {
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            password: password,
-            birthday: selectedDate
-        };
-        console.log(user);
-        axios
-            .post("api/user/register", user)
-            .then((res) => console.log(res.data))
-            .catch((error) => console.log(error.response.request._response));
+        if (!verifyEmail(email)) {
+            return;
+        }
+        else {
+            const user = {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                password: password,
+                birthday: selectedDate
+            };
+            console.log(user);
+            axios
+                .post("api/user/register", user)
+                .then((res) => console.log(res.data))
+                .catch((error) => console.log(error.response.request._response));
+        }
+
     }
 
 
@@ -45,13 +51,27 @@ export default function RegisterForm() {
         }
     }
 
-    const [selectedDate, setSelectedDate] = React.useState();
+    const [selectedDate, setSelectedDate] = useState("01-01-1978");
 
     const handleDateChange = (date) => {
-        var finaldate = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
-        setSelectedDate(finaldate);
-        console.log(finaldate);
+        var selectedDate = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+        setSelectedDate(selectedDate);
+        console.log(selectedDate);
     };
+
+    const verifyEmail = temp => {
+        console.log(temp)
+        //no special characters allowed only alphabet and numbers with max length 10
+        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+        if (!temp.match(regex)) {
+            alert('mail invalid')
+            return false;
+        }
+
+        return true;
+    }
+
 
     return (
 
@@ -67,8 +87,9 @@ export default function RegisterForm() {
                 {/* Fields */}
                 <TextField id="outlined-basic" reauired label="First name" variant="outlined" value={firstname} onChange={(e) => { setFirstname(e.target.value); }} />
                 <TextField id="outlined-basic" reauired label="Last name" variant="outlined" value={lastname} onChange={(e) => { setLastname(e.target.value); }} />
+
                 <TextField id="outlined-basic" reauired label="E-mail" variant="outlined" value={email} onChange={(e) => { setEmail(e.target.value); }} />
-                <TextField id="outlined-basic" reauired label="Password" variant="outlined" value={password} onChange={(e) => { setPassword(e.target.value); }} onKeyPress={handleEnter} />
+                <TextField id="outlined-basic" reauired type="password" label="Password" variant="outlined" value={password} onChange={(e) => { setPassword(e.target.value); }} onKeyPress={handleEnter} />
                 {/* <TextField id="outlined-basic" reauired label="Birthday" variant="outlined" value={birthday} onChange={(e) => { setBirthday(e.target.value); }} onKeyPress={handleEnter} /> */}
 
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>

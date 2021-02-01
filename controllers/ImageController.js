@@ -4,42 +4,23 @@ const jwt = require("jsonwebtoken");
 var shortId = require('shortid');
 
 
-
-// const readIcon = async (req, res, next) => {
-//     Icon.findById(req.params.owner)
-//     .then(new Promise((resolve, reject) => {
-//         s3.createBucket({
-//             Bucket: BUCKET_NAME
-//         }, function () {
-//             s3.getObject(params, function (err, data) {
-//                 if (err) {
-//                     reject(err);
-//                 } else {
-//                     console.log("Successfully dowloaded data from bucket");
-//                     resolve(data);
-//                 }
-//             });
-//         });
-//     })
-//     .catch((err) => res.status(400).json("Error: " + err));
-// }
-
-const readImage = async (req, res, next) => {
+const readImages = async (req, res, next) => {
 
     const id = req.user._id;
-    const image = await Image.findOne({ _id: id });
+    Image.find({})
+        .then((doc) => {
+            // console.log(doc)
+            return res.json({
+                success: true,
+                images: doc
+            })
 
-    if (!image) return res.json({
-        success: false,
-        message: "image-not-found"
-    })
-
-    console.log(image)
-
-    return res.json({
-        success: true,
-        image: image
-    })
+        }).catch(err => {
+            return res.json({
+                success: false,
+                message: "mongoose-error"
+            })
+        })
 
 }
 
@@ -47,5 +28,5 @@ const readImage = async (req, res, next) => {
 
 
 module.exports = {
-    readImage
+    readImages
 }

@@ -5,7 +5,7 @@ const verify = require("./TokenVerif");
 const imageController = require("../controllers/ImageController");
 
 
-router.get("/read", verify, imageController.readImage);
+router.post("/read/all", verify, imageController.readImages);
 
 
 

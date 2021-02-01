@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { reactLocalStorage as Ls } from 'reactjs-localstorage';
 import Navbar from "./components/Navbar";
 import "./App.css";
-// import Home from "./views/HomePage";
 import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import Profile from "./views/Profile";
+import Images from "./views/Images";
 import jwt_decode from "jwt-decode";
 
 
@@ -65,6 +65,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/profile" component={Profile} />
+        <Route path="/images" component={Images} />
 
       </Switch>
     </>
