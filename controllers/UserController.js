@@ -48,8 +48,8 @@ const register = async (req, res, next) => {
     const birthday = Date.parse(req.body.birthday);
 
     console.log("connecting for creation");
-
-    const newUser = new User({ firstname, lastname, email, password, birthday, [] });
+    const ownedImages = [];
+    const newUser = new User({ firstname, lastname, email, password, birthday, ownedImages });
 
     newUser
         .save()
