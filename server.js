@@ -14,6 +14,9 @@ app.use(express.json());
 
 //connect to db
 const uri = process.env.MONGODB_URL;
+
+console.log(uri)
+
 mongoose.connect(uri || "mongodb://localhost/xaasfarm", {
     useNewUrlParser: true,
     useCreateIndex: true,

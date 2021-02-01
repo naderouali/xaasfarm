@@ -59,15 +59,8 @@ export default function RegisterForm() {
                 .post("api/user/register", user)
                 .then((res) => {
                     console.log(res.data)
-
-
                     history.push("/login")
-
-
-
-
                 })
-
 
                 .catch((error) => console.log(error.response.request._response));
         }
@@ -121,7 +114,6 @@ export default function RegisterForm() {
 
                 <TextField id="outlined-basic" reauired label="E-mail" variant="outlined" value={email} onChange={(e) => { setEmail(e.target.value); }} />
                 <TextField id="outlined-basic" reauired type="password" label="Password" variant="outlined" value={password} onChange={(e) => { setPassword(e.target.value); }} onKeyPress={handleEnter} />
-                {/* <TextField id="outlined-basic" reauired label="Birthday" variant="outlined" value={birthday} onChange={(e) => { setBirthday(e.target.value); }} onKeyPress={handleEnter} /> */}
 
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
