@@ -39,7 +39,7 @@ export default function Login() {
                 if (res.data.success) {
 
                     Ls.setObject("session", { token: res.data.token, isLoggedIn: true });
-                    history.push("/profile")
+                    history.push("/images")
 
                 } else if (res.data.message === "user-not-found") {
                     alert("Wrong e-mail or password");

@@ -8,12 +8,6 @@ export default function Profile() {
 
 
     const [user, setUser] = useState({});
-    const [selectedImage, setSelectedImage] = useState({
-        url: "",
-        name: "",
-        price: "",
-        _id: ""
-    })
     const [images, setImages] = useState([])
 
 
@@ -83,8 +77,10 @@ export default function Profile() {
 
     return (
         <div style={{ backgroundColor: '#b9b9b9', minHeight: '100vh' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 15, justifyContent: 'center', padding: '5%' }}>
+            <div style={{ fontSize: 40, textAlign: 'center', paddingTop: 15, fontWeight: 'bold' }}>Hello {user.firstname}</div>
+            <div style={{ fontSize: 20, textAlign: 'center', paddingTop: 15 }}>Here are the images you purchased</div>
 
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 15, justifyContent: 'center', padding: '5%' }}>
 
                 {images.map(item => (
                     <>
@@ -100,16 +96,6 @@ export default function Profile() {
                         />
                         }
                     </>
-                    //     <Image
-                    //     key={item._id}
-                    //     {...item}
-                    //     url={item.url}
-                    //     name={item.name}
-                    //     price={item.price}
-
-                    //     owned={user.ownedImages.includes(item._id)}
-
-                    // />
                 ))}
 
 

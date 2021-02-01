@@ -39,8 +39,6 @@ export default function Images() {
             axios
                 .post("/api/user/profile/", {}, config)
                 .then((response) => {
-                    // console.log(response)
-
                     let res = response.data;
 
                     if (res.success) {
@@ -135,6 +133,9 @@ export default function Images() {
 
     return (
         <div style={{ backgroundColor: '#b9b9b9', minHeight: '100vh' }}>
+            <div style={{ fontSize: 40, textAlign: 'center', paddingTop: 15, fontWeight: 'bold' }}>Hello {user.firstname}</div>
+            <div style={{ fontSize: 20, textAlign: 'center', paddingTop: 15 }}>You can start purchasing images from here,</div>
+            <div style={{ fontSize: 20, textAlign: 'center' }}>and you will find them on your profile page</div>
             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 15, justifyContent: 'center', padding: '5%' }}>
 
 
