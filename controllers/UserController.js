@@ -33,18 +33,22 @@ const buyImage = async (req, res, next) => {
 const register = async (req, res, next) => {
 
     //checking if email exists already in DB
-    console.log(req.body);
+    // console.log(req.body);
+    console.log("checking if user exists")
     const emailExist = await User.findOne({ email: req.body.email });
     if (emailExist)
-        return res.status(400).send("Email already exists, try login");
-    console.log(req.body);
+        return res.send("Email already exists, try login");
+
+    console.log("already checked now creating");
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const email = req.body.email;
     const password = hashedPassword;
     const birthday = Date.parse(req.body.birthday);
-    console.log(req.body.birthday);
+
+    console.log("connecting for creation");
+
     const newUser = new User({ firstname, lastname, email, password, birthday });
 
     newUser
